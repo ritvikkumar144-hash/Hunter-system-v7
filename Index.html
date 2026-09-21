@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hunter System V7</title>
+<style>
+body{margin:0;background:#06111f;color:white;font-family:Arial}
+.box{padding:20px}
+.card{background:#0b2035;border:1px solid #29d8ff;border-radius:20px;padding:15px}
+.bar{height:10px;background:#123;border-radius:99px}
+.fill{height:10px;width:0;background:#22d3ee;border-radius:99px}
+button{background:#0ea5e9;color:white;border:none;padding:10px 15px;border-radius:10px}
+</style>
+</head>
+<body>
+<div class="box">
+<div class="card">
+<h1>⚔ HUNTER SYSTEM V7</h1>
+<h3 id="rank">E Hunter</h3>
+<div id="xp">0 XP</div>
+<div class="bar"><div class="fill" id="fill"></div></div>
+
+<h2>Today's Dungeon</h2>
+
+<button onclick="quest()">Complete Biology Quest</button>
+
+<h2>Shadow Army</h2>
+<div id="shadow">🔒 Igris (1500 XP)</div>
+</div>
+</div>
+
+<script>
+let xp=Number(localStorage.getItem("xp")||0);
+
+function update(){
+document.getElementById("xp").innerHTML=xp+" XP";
+document.getElementById("fill").style.width=Math.min(xp/35000*100,100)+"%";
+document.getElementById("rank").innerHTML=
+xp>=35000?"Shadow Monarch":
+xp>=12000?"S Hunter":
+xp>=7000?"A Hunter":
+xp>=3500?"B Hunter":
+xp>=1500?"C Hunter":
+xp>=500?"D Hunter":"E Hunter";
+
+document.getElementById("shadow").innerHTML=
+xp>=1500?"⚔ Igris Joined":"🔒 Igris (1500 XP)";
+localStorage.setItem("xp",xp);
+}
+
+function quest(){
+let proof=prompt("Hunter, Biology me kya complete kiya?");
+if(!proof||proof.length<6){
+alert("Knowledge insufficient.");
+return;
+}
+xp+=200;
+update();
+alert("ARISE! +200 XP");
+}
+
+update();
+</script>
+</body>
+</html>
